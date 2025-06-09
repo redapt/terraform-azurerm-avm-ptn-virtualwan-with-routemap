@@ -72,7 +72,7 @@ variable "er_circuit_connections" {
     enable_internet_security             = optional(bool)
     express_route_gateway_bypass_enabled = optional(bool)
     routing = optional(object({
-      associated_route_table_id = string
+      associated_route_table_id = optional(string)
       propagated_route_table = optional(object({
         route_table_ids = optional(list(string))
         labels          = optional(list(string))
@@ -372,7 +372,9 @@ variable "virtual_network_connections" {
     remote_virtual_network_id = string
     internet_security_enabled = optional(bool, false)
     routing = optional(object({
-      associated_route_table_id = string
+      associated_route_table_id = optional(string)
+      inbound_route_map_id = optional(string)
+      outbound_route_map_id = optional(string)
       propagated_route_table = optional(object({
         route_table_ids = optional(list(string), [])
         labels          = optional(list(string), [])

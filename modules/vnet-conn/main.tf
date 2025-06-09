@@ -10,7 +10,9 @@ resource "azurerm_virtual_hub_connection" "hub_connection" {
     for_each = each.value.routing != null ? [each.value.routing] : []
 
     content {
-      associated_route_table_id = routing.value.associated_route_table_id
+      associated_route_table_id = try(routing.value.associated_route_table_id, null)
+      inbound_route_map_id = try(routing.value.inbound_route_map_id, null)
+      outbound_route_map_id = try(routing.value.outbound_route_map_id, null)
 
       dynamic "propagated_route_table" {
         for_each = routing.value.propagated_route_table != null ? [routing.value.propagated_route_table] : []
